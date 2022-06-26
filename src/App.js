@@ -1,7 +1,7 @@
 import logo from "./logo.svg";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
-import { Button, Navbar, Container, Nav, NavDropdown, Form } from "react-bootstrap";
+import { Button, Navbar, Container, Nav, NavDropdown, Form, Row, Col } from "react-bootstrap";
 import "./App.css";
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar bg="dark" variant="dark">
+      <Navbar bg="light" variant="light">
         <Container>
           <Navbar.Brand href="#home">UKSHOP</Navbar.Brand>
           <Nav className="me-auto">
@@ -35,6 +35,28 @@ function App() {
           </Nav>
         </Container>
       </Navbar>
+      <div className="main-bg"></div>
+      <div>
+        <Container>
+          <Row>
+            <Col>
+              <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="80%"></img>
+              <h4>상품명</h4>
+              <div>상품설명</div>
+            </Col>
+            <Col>
+              <img src="https://codingapple1.github.io/shop/shoes2.jpg" width="80%"></img>
+              <h4>상품명</h4>
+              <div>상품설명</div>
+            </Col>
+            <Col>
+              <img src="https://codingapple1.github.io/shop/shoes3.jpg" width="80%"></img>
+              <h4>상품명</h4>
+              <div>상품설명</div>
+            </Col>
+          </Row>
+        </Container>
+      </div>
     </div>
   );
 }

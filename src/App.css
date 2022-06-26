@@ -12,10 +12,18 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+
 .search {
   margin-left: 50px;
 }
 
+.main-bg {
+  height: 400px;
+  background-image: url("../public/react.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
