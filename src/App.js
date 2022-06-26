@@ -3,13 +3,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
 import { Button, Navbar, Container, Nav, NavDropdown, Form, Row, Col } from "react-bootstrap";
 import "./App.css";
-
+import { data } from "./data.js";
 function App() {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
+  let [shoes] = useState(data);
   return (
     <div className="App">
       <Navbar bg="light" variant="light">
@@ -39,25 +35,25 @@ function App() {
       <div>
         <Container>
           <Row>
-            <Col>
-              <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="80%"></img>
-              <h4>상품명</h4>
-              <div>상품설명</div>
-            </Col>
-            <Col>
-              <img src="https://codingapple1.github.io/shop/shoes2.jpg" width="80%"></img>
-              <h4>상품명</h4>
-              <div>상품설명</div>
-            </Col>
-            <Col>
-              <img src="https://codingapple1.github.io/shop/shoes3.jpg" width="80%"></img>
-              <h4>상품명</h4>
-              <div>상품설명</div>
-            </Col>
+            {shoes.map((shoe) => {
+              return <Card shoe={shoe} />;
+            })}
           </Row>
         </Container>
       </div>
     </div>
+  );
+}
+
+function Card(props) {
+  return (
+    <Col>
+      <div>
+        <img src={props.shoe.img} width="80%"></img>
+        <h4>{props.shoe.title}</h4>
+        <div>{props.shoe.price}</div>
+      </div>
+    </Col>
   );
 }
 
