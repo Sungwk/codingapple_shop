@@ -16,7 +16,13 @@
 .search {
   margin-left: 50px;
 }
-
+.start {
+  opacity: 0;
+}
+.end {
+  opacity: 1;
+  transition: opacity 0.5s;
+}
 .main-bg {
   height: 400px;
   background-image: url("../public/react.png");
