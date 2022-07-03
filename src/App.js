@@ -6,12 +6,14 @@ import "./App.css";
 import { data } from "./data.js";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import { Detail } from "./routes/Detail";
+import Cart from "./routes/Cart";
 import axios from "axios";
 
 function App() {
   let [shoes, setShoes] = useState(data);
   let [count, setCount] = useState(0);
   let [load, setLoad] = useState(false);
+  let [재고] = useState([10, 11, 12]);
   let navigate = useNavigate();
 
   return (
@@ -20,13 +22,27 @@ function App() {
         <Container>
           <Navbar.Brand href="/">UKSHOP</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              Home
+            </Nav.Link>
             <Nav.Link
               onClick={() => {
                 navigate("/about");
               }}
             >
               About
+            </Nav.Link>
+
+            <Nav.Link
+              onClick={() => {
+                navigate("/cart");
+              }}
+            >
+              Cart
             </Nav.Link>
             <NavDropdown title="Event" id="navbarScrollingDropdown">
               <NavDropdown.Item href="/event/one">Event One</NavDropdown.Item>
@@ -91,32 +107,8 @@ function App() {
             </>
           }
         />
-        <Route path="/about" element={<About />}>
-          <Route path="member" element={<div>member</div>} />
-        </Route>
-        <Route path="/event" element={<Event />}>
-          <Route path="one" element={<div>첫 주문시 양배추즙 서비스</div>} />
-          <Route path="two" element={<div>생일기념 쿠폰받기</div>} />
-        </Route>
+        <Route path="/cart" element={<Cart />}></Route>
       </Routes>
-    </div>
-  );
-}
-
-function About() {
-  return (
-    <div>
-      <h4>About</h4>
-      <Outlet></Outlet>
-    </div>
-  );
-}
-
-function Event() {
-  return (
-    <div>
-      <h4>오늘의 이벤트</h4>
-      <Outlet></Outlet>
     </div>
   );
 }

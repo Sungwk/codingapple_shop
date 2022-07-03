@@ -1,13 +1,19 @@
 import { Nav } from "react-bootstrap";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import "../App.css";
+import { addItem } from "../store";
 
 const Detail = (props) => {
+  let state = useSelector((state) => state);
+  let dispatch = useDispatch();
+
   let [alert, setAlert] = useState(true);
   let [tabNum, setTabNum] = useState(0);
   useEffect(() => {
+    console.log(state.cartItem);
     setTimeout(() => {
       setAlert(false);
     }, 2000);
@@ -30,7 +36,15 @@ const Detail = (props) => {
           <h4 className="pt-5">{shoes.title}</h4>
           <p>{shoes.content}</p>
           <p>{shoes.price}원</p>
-          <button className="btn btn-danger">주문하기</button>
+          <button
+            className="btn btn-danger"
+            onClick={() => {
+              dispatch(addItem(shoes));
+            }}
+          >
+            주문하기
+          </button>
+          <div></div>
         </div>
       </div>
       <Nav variant="tabs" defaultActiveKey="link0">
