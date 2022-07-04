@@ -1,6 +1,6 @@
 import logo from "./logo.svg";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Navbar, Container, Nav, NavDropdown, Form, Row, Col } from "react-bootstrap";
 import "./App.css";
 import { data } from "./data.js";
@@ -10,17 +10,29 @@ import Cart from "./routes/Cart";
 import axios from "axios";
 
 function App() {
+  useEffect(() => {
+    if (!localStorage.getItem("watched")) {
+      localStorage.setItem("watched", JSON.stringify([]));
+    } else {
+    }
+  }, []);
   let [shoes, setShoes] = useState(data);
   let [count, setCount] = useState(0);
   let [load, setLoad] = useState(false);
-  let [재고] = useState([10, 11, 12]);
+
   let navigate = useNavigate();
 
   return (
     <div className="App">
       <Navbar bg="light" variant="light" className="navbar">
         <Container>
-          <Navbar.Brand href="/">UKSHOP</Navbar.Brand>
+          <Navbar.Brand
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            UKSHOP
+          </Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link
               onClick={() => {

@@ -7,8 +7,8 @@ let user = createSlice({
     changeName(state) {
       state.name = "park";
     },
-    plusAge(state, a) {
-      state.age += a.payload;
+    plusAge(state, action) {
+      state.age += action.payload;
     },
   },
 });
@@ -22,15 +22,15 @@ let cartItem = createSlice({
     { id: 2, name: "Grey Yordan", count: 1 },
   ],
   reducers: {
-    plusCount(state, a) {
-      state.find((x) => x.id == a.payload).count += 1;
+    plusCount(state, action) {
+      state.find((x) => x.id == action.payload).count += 1;
     },
-    addItem(state, a) {
-      let item = state.find((x) => x.id == a.payload.id);
+    addItem(state, action) {
+      let item = state.find((x) => x.id == action.payload.id);
       if (item) {
         item.count += 1;
       } else {
-        let item = { id: a.payload.id, name: a.payload.title, count: 1 };
+        let item = { id: action.payload.id, name: action.payload.title, count: 1 };
         state.push(item);
       }
     },

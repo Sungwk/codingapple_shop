@@ -12,15 +12,20 @@ const Detail = (props) => {
 
   let [alert, setAlert] = useState(true);
   let [tabNum, setTabNum] = useState(0);
+  let { id } = useParams();
+  let shoes = props.shoes.find((shoes) => shoes.id == id);
   useEffect(() => {
-    console.log(state.cartItem);
+    let watchedArr = JSON.parse(localStorage.getItem("watched"));
+    watchedArr.push(shoes.id);
+    console.log(watchedArr);
+    let set = new Set(watchedArr);
+    localStorage.setItem("watched", JSON.stringify([...set]));
+    console.log(localStorage.getItem("watched"));
     setTimeout(() => {
       setAlert(false);
     }, 2000);
   });
 
-  let { id } = useParams();
-  let shoes = props.shoes.find((shoes) => shoes.id == id);
   return (
     <div className="container">
       {alert == true ? (
