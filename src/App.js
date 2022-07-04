@@ -1,21 +1,29 @@
 import logo from "./logo.svg";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from "react";
-import { Button, Navbar, Container, Nav, NavDropdown, Form, Row, Col } from "react-bootstrap";
+import { Button, Navbar, Container, Nav, NavDropdown, Modal, Row, Col } from "react-bootstrap";
 import "./App.css";
 import { data } from "./data.js";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import { Detail } from "./routes/Detail";
 import Cart from "./routes/Cart";
 import axios from "axios";
+import { useQuery } from "react-query";
+import { hover } from "@testing-library/user-event/dist/hover";
 
 function App() {
   useEffect(() => {
-    if (!localStorage.getItem("watched")) {
-      localStorage.setItem("watched", JSON.stringify([]));
-    } else {
-    }
+    !localStorage.getItem("watched") && localStorage.setItem("watched", JSON.stringify([]));
   }, []);
+  let result = useQuery("작명", () =>
+    axios.get("https://codingapple1.github.io/userdata.json").then((a) => {
+      return a.data;
+    })
+  );
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   let [shoes, setShoes] = useState(data);
   let [count, setCount] = useState(0);
   let [load, setLoad] = useState(false);
@@ -61,8 +69,44 @@ function App() {
               <NavDropdown.Item href="/event/two">Event Two</NavDropdown.Item>
             </NavDropdown>
           </Nav>
+          <Nav class="ms-auto" onClick={handleShow} style={{ cursor: "grab" }}>
+            최근 본 상품
+          </Nav>
+          <Nav className="ms-auto">
+            {result.isLoading && "로딩중"}
+            {result.error && "에러남"}
+            {result.data && result.data.name + "님 환영합니다"}
+          </Nav>
         </Container>
       </Navbar>
+
+      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+        <Modal.Header closeButton>
+          <Modal.Title>최근 본 상품</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {JSON.parse(localStorage.getItem("watched")).map((data, i) => {
+            return (
+              <div>
+                <span
+                  onClick={() => {
+                    navigate("/detail/" + data);
+                    handleClose();
+                  }}
+                  style={{ cursor: "grab" }}
+                >
+                  {shoes[data].title}
+                </span>
+              </div>
+            );
+          })}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
       <Routes>
         <Route path="/detail/:id" element={<Detail shoes={shoes} />}></Route>
